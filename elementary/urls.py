@@ -15,9 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+def redirect_login(request):
+    if not request.user.is_authenticated:
+        return redirect('auth_login')
+    else:
+        return redirect('core:index')
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('registration.backends.simple.urls')),
-    path('', include('core.urls')),
-]
+                  path('admin/', admin.site.urls),
+                  path('accounts/', include('registration.backends.simple.urls')),
+                  path('', redirect_login),
+                  path('', include('core.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -131,5 +131,5 @@ MEDIA_URL = '/media/'
 REGISTRATION_AUTO_LOGIN = True
 
 LOGIN_URL = 'auth_login'
-LOGIN_REDIRECT_URL = 'core:home'
+LOGIN_REDIRECT_URL = 'core:index'
 LOGOUT_REDIRECT_URL = '/'

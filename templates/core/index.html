@@ -62,6 +62,74 @@ Jalpaiguri Government Engineering College
     <span class="loader"></span>
 
 
+     <!-- Blog Single Modal Start -->
+    <div class="blog-single modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="blogModalScrollable" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blogModalScrollable">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--   Blog-single   Start -->
+                    <div class="pt-4 pb-5 text-muted">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-10 offset-lg-1 blog">
+                                    <div class="rounded px-lg-5">
+                                        <div class="text-md-left">
+
+                                            <!--Login Reply-->
+                                            <div class="contact mt-4">
+                                                <form action="." method="post" name="login_form">
+                                                    {% csrf_token %}
+                                                    <div class="login-form">
+                                                    <h2 class="text-left mb-4">Login</h2>
+                                                    <form>
+                                                        <div class="row">
+                                                            <div class="col-lg-6 form-item">
+                                                                <div class="form-group">
+                                                                    <input name="username" id="blog-name" type="text" class="form-control" placeholder="Your Name*" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6 form-item">
+                                                                <div class="form-group">
+                                                                    <input name="password" id="blog-email" type="password" class="form-control" placeholder="Your Password*" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 mt-4 text-left">
+                                                                <div class="button-border">
+                                                                    <button type="submit" class="pill-button">Login</button>
+                                                                </div>
+                                                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="400000" >
+                                                                    <div class="toast-body d-inline-block"></div>
+                                                                    <a class="pr-3 close" data-dismiss="toast" aria-label="Close">
+                                                                        <span aria-hidden="true" class="lni-close size-xs "></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                </form>
+                                            </div>
+                                            <!-- end -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Blog Single Modal End  -->
+
+
+
 
 
 
@@ -123,7 +191,7 @@ Jalpaiguri Government Engineering College
                                                     {% else %}
                                                     <h2 class="text-left mb-4">Stage Cleared</h2>
                                                     {% endif %}
-                                                    <form id="answerForm" method="post" action="{% url 'elementary:answer' %}">
+                                                    <form id="answerForm" method="post" action="{% url 'core:answer' %}">
                                                         {% csrf_token %}
                                                         <div class="row">
                                                             <input name="level_no" type="hidden" value="{{ x.level.number }}" id="level_no">
@@ -185,7 +253,7 @@ Jalpaiguri Government Engineering College
                     <li class="list-group-item"><a href="#leaderboard"><i class="lni-heart-filled"></i><span>Leaderboard</span></a></li>
                     <li class="list-group-item"><a href="#contact"><i class="lni-envelope"></i><span>Contact</span></a></li>
                     {% if user.is_authenticated %}
-                    <li class="list-group-item"><a href="{% url 'elementary:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
+                    <li class="list-group-item"><a href="{% url 'auth_logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
                     {% endif %}
                     <li class="list-group-item"><a href="https://linkedin.com/in/gurtej-singh-rehal-726a81129/" target="_blank"><i class="lni-reddit"></i><span>Developer</span></a></li>
 
@@ -242,7 +310,7 @@ Jalpaiguri Government Engineering College
                                     {% if user.is_authenticated %}
                                      <p href="#" class="max-width-450 mx-0 my-4">Welcome, <span class="base-color">{{ userprofile.user.first_name }}</span></p>
                                     {% else %}
-                                    <a href="#" class="max-width-450 mx-0 my-4 btn btn-info">Login</a>
+                                    <a href="login-modal" data-toggle="modal" data-target="#login-modal" class="max-width-450 mx-0 my-4 btn btn-info">Login</a>
                                     <a href="#" class="max-width-450 mx-0 my-4 btn btn-primary"><i class="mr-3 lni-facebook-filled"></i> Login </a>
                                     {% endif %}
                                     <ul class="list-inline hero-social">
@@ -486,7 +554,7 @@ Jalpaiguri Government Engineering College
                                         <img class="number-icon" src="https://img.icons8.com/plasticine/100/000000/{{ forloop.counter}}.png">
                                         <div class="timeline-contents">
                                             <div class="time-line-header">
-                                                <h6 class="timeline-title"><a style="color:white" href="{% url 'elementary:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></h6>
+                                                <h6 class="timeline-title"><a style="color:white" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></h6>
                                                 <p class="timeline-year">{{ rank.user.college|upper }}</p>
                                             </div>
                                             <div class="timeline-content">
@@ -527,7 +595,7 @@ Jalpaiguri Government Engineering College
                                       {% for rank in rest_ranks %}
                                         <tr>
                                           <th scope="row">{{ forloop.counter|add:3 }}</th>
-                                          <td><a style="color:white" href="{% url 'elementary:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></td>
+                                          <td><a style="color:white" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></td>
                                           {% if rank.completed %}
                                             <td>Complete</td>
                                           {% else %}
@@ -654,7 +722,7 @@ Jalpaiguri Government Engineering College
 <!--                                        <div class="img-overlay text-center">-->
 <!--                                            <div class="img-overlay-content">-->
 <!--                                                <div class="portfolio-icon">-->
-<!--                                                    <a href="{% url 'elementary:profile' userprofile.user.username %}"><button type="button" ><i class="lni-user"></i></button></a>-->
+<!--                                                    <a href="{% url 'core:profile' userprofile.user.username %}"><button type="button" ><i class="lni-user"></i></button></a>-->
 <!--                                                    <a href="{{ userprofile.picture_url }}" class="js-zoom-gallery">-->
 <!--                                                        <i class="lni-zoom-in"></i>-->
 <!--                                                    </a>-->
