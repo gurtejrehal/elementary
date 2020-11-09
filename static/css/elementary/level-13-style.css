@@ -1,0 +1,114 @@
+body {
+  margin: 0 auto;
+  height: 100vh;
+  perspective: 600px;
+  transition: ease all 2s;
+  overflow: hidden;
+}
+div {
+  position: absolute;
+}
+.assembly {          
+  top: 50%;
+  left: 50%;
+  width:400px;
+  height:400px;
+  margin: -200px 0 0 -200px;
+
+  transform-style: preserve-3d;
+  transform-origin:center center 200px;
+  transition:ease all 2s;
+}
+.plane {
+  margin: 0;
+  width: 400px;
+  height: 400px;
+  background: #ee8c25; 
+}
+.plane1 {
+  transform: rotateY(90deg);
+  background: #d14730;
+/*   display:none; */
+  transform-origin:right center;          
+}
+.plane3 {
+  transform: rotateY(-90deg);
+  background: #345634;
+
+  transform-origin:left center;          
+}
+.plane2 {
+  transform: rotateY(180deg) translateZ(-400px);
+  background: #ccc;
+  /*display:none;*/ 
+
+   backface-visibility: hidden;
+  transform-origin:center center ;          
+}
+.rotate{
+  transform:rotateY(90deg);
+  transition:ease all 2s;
+}
+.untouchable{
+  pointer-events:none;
+}
+.turnleft{
+  margin: 0;
+  width: 400px;
+  height: 400px;
+  background: blue;
+  transform: rotateY(-90deg);
+  transform-origin:left center;  
+  opacity:0;
+  pointer-events:all;
+}
+.turnright{
+  transform: rotateY(90deg);
+  background: #d14730;
+  transform-origin:right center; 
+  margin: 0;
+  width: 400px;
+  height: 400px;
+  background: blue;
+  opacity:0;
+  pointer-events:all;
+ }
+.fakeassembly{      
+  top: 50%;
+  left: 50%;
+  width:400px;
+  height:400px;
+  margin: -200px 0 0 -200px;
+  transform-style: preserve-3d;
+  transform-origin:center center 200px;
+  transition:ease all 2s;
+  pointer-events:none;
+}
+  
+/* FURNITURE */
+  .door{
+    height:75%;
+    width:30%;
+    bottom:0;
+    left:35%;
+    border-radius: 10px;
+    background:rgba(238,140,37, 0.1)
+  }
+  .doorknob{
+    width:35px;
+    height:35px;
+    background:white;
+    border-radius:35px;
+    right:40px;
+    top:45%;
+    cursor:pointer;
+  }
+  .key{
+    width:30px;
+    height:30px;
+    bottom:0;
+    left:30%;
+    background: url(https://www.jeclatt20.com/static/wp-content/themes/t20/images/company/t20-logomark-black.svg);
+    background-size:contain;
+    cursor:pointer;
+  }

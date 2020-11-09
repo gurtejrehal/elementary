@@ -1,0 +1,76 @@
+
+::selection {
+    background: rgba(1, 138, 190,0.31)
+}
+::-moz-selection {
+    background: rgba(1, 138, 190,0.31)
+}
+.base-color{
+    color: #018abe !important;
+}
+.hero-social li a:hover, .blog-link a:hover{
+    color: #017ead !important;
+}
+.bg-base-color {
+    background-color: #018abe !important;
+}
+.follow-label:before,
+.skill-box .fill-skillbar,
+.timeline-area:before,
+.testimonial .testimonial-border,
+.testimonial .owl-dot.active span,
+.blog-content:before,
+.blog .owl-dot.active span {
+    background: #018abe;
+}
+.menu li a ,
+.pill-button ,
+header .navbar-brand span ,
+header .navbar-brand b ,
+.pill-button:hover ,
+.ability ul li:before,
+.timeline-icon,
+.timeline-year ,
+.language-skill ul li i ,
+.contact .form-item .form-control,
+.comments .comment-info a,
+.portfolio .portfolio-icon a,
+.portfolio .portfolio-icon button,
+.blog-content button:hover,
+.comments .comment-info a:hover,
+.social a:hover
+{
+    color: #018abe;
+}
+.loader {
+    border-top: 4px solid #018abe !important;
+}
+.timeline-icon{
+    border: 1px solid #018abe;
+    background-color: #018abe;
+}
+.portfolio .portfolio-item-content::before {
+
+    background-color:rgba(1, 138, 190,0.6)
+}
+.menu-toggler span {
+    background-color: rgb(1, 138, 190)
+}
+.timeline-item:before
+{
+    border: 2px solid #018abe;
+}
+.timeline-item:before
+{
+    border: 1px solid #018abe;
+}
+
+/*-------------------------
+      Flat Demo
+-------------------------*/
+.flat-demo .button-border, .arshia-dark.flat-demo .button-border{
+    background-color: #018abe;
+}
+.flat-demo .pill-button:hover, .flat-demo .pill-button.active{
+    background-color: #017ead;
+}

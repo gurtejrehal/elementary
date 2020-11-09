@@ -1,0 +1,958 @@
+<!--
+Developed by: Gurtej Singh Rehal ( ͡° ͜ʖ ͡°)
+Jalpaiguri Government Engineering College
+-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>JECLAT T20 - Elementary</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="Elementary" />
+        <meta name="author" content="Gurtej Rehal" />
+
+        <!--  FavIcon  -->
+        <link rel="shortcut icon" href="{% static 'images/t20_main/t20-logomark-black.ico' %}" type="favicon.png" />
+
+        <!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Muli:300,400,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
+
+        <!-- Plugin Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/plugins.css' %}">
+        <!-- Colors Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/color/yellow-color.css' %}" id="option-color">
+        <!--  Custom Style CSS  -->
+        <link rel="stylesheet" href="{% static 'css/elementary/style.css' %}">
+
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '2268418690128685',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{6}'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+    </head>
+    <body data-spy="scroll" data-target="#scrollspy" data-offset="1" class="arshia-dark">
+
+
+    <!--  Pre Loader  -->
+    <div id="overlayer"></div>
+    <span class="loader"></span>
+
+
+
+
+
+    {% for x in all_levelpublish %}
+
+    <!-- Level Modal Start -->
+    <div class="blog-single modal fade" id="level-{{ x.level.number }}" tabindex="-1" role="dialog" aria-labelledby="blogModalScrollable" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {% if x.level.number == 99 %}
+                    <h5 class="modal-title" id="blogModalScrollable">Elementary Completed</h5>
+                    {% else %}
+                    <h5 class="modal-title" id="blogModalScrollable">Level {{ x.level.number|add:1 }}</h5>
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--   Lvel   Start -->
+                    <div class="pt-4 pb-5 text-muted">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-10 offset-lg-1 blog">
+                                    <div class="rounded px-lg-5">
+                                        <div class="text-md-left">
+                                            <h4 class="mb-4">{{ x.level.title }}</h4>
+                                            {% if x.level.audio %}
+                                                    {% if "mp3" in x.level.audio.url %}
+                                                    <div class="image-border">
+                                                        <audio src="{{ x.level.audio.url }}" controls></audio>
+                                                    {% elif "mp4" in x.level.audio.url %}
+                                                     <div class="image-border embed-responsive embed-responsive-16by9">
+                                                        <video class="embed-responsive-item" src="{{ x.level.audio.url }}" controls></video>
+                                                    {% endif %}
+                                                {% else %}
+                                            <div class="image-border">
+                                                <img src="{{ x.level.picture.url }}" alt="Level {{ x.level.number|add:1 }} picture">
+                                                {% endif %}
+                                            </div>
+                                            <span class="d-inline-block py-4"> {{ x.level.daypublished }} {{ x.level.monthpublished }} {{ x.level.yearpublished }}
+                                        / By <span class="purple-color text-right"> {{ x.level.author }}. </span>
+                                        </span>
+                                            <p>{{ x.level.description }}</p>
+                                            <div class="px-md-5 px-3 py-4 quotation">
+                                                <i class="base-color lni-quotation size-md"></i>
+                                                <h6 class="base-color font-italic mb-0">{{ x.level.quote }}</h6>
+                                            </div>
+                                            <p class="my-3">{{ x.level.hint }}</p>
+
+                                            <!--Level Reply-->
+                                            <div class="contact mt-4">
+                                                <div class="contact-form">
+                                                    {% if quiztaker.correct_answers == x.level.number %}
+                                                    <h2 class="text-left mb-4">Answer Here</h2>
+                                                    {% elif x.level.number == 99 %}
+                                                    <h2 class="text-left mb-4">Done and Dusted</h2>
+                                                    {% else %}
+                                                    <h2 class="text-left mb-4">Stage Cleared</h2>
+                                                    {% endif %}
+                                                    <form id="answerForm" method="post" action="{% url 'elementary:answer' %}">
+                                                        {% csrf_token %}
+                                                        <div class="row">
+                                                            <input name="level_no" type="hidden" value="{{ x.level.number }}" id="level_no">
+
+                                                            {% if quiztaker.correct_answers == x.level.number and x.level.number != 99 %}
+                                                            <div class="col-lg-12 form-item">
+                                                                <div class="form-group">
+                                                                    <input name="answer" id="blog-name" type="text" class="form-control" placeholder="Answer" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 mt-4 text-left ">
+                                                                <div class="button-border">
+                                                                    <input type="submit" class="btn pill-button" onclick="this.value='Be Patient :)';this.disabled='disabled'; this.form.submit();">
+                                                                </div>
+                                                                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="400000" >
+                                                                    <div class="toast-body d-inline-block"></div>
+                                                                    <a class="pr-3 close" data-dismiss="toast" aria-label="Close">
+                                                                        <span aria-hidden="true" class="lni-close size-xs "></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            {% endif %}
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                            <div class="fb-comments" data-colorscheme="dark" data-href="http://127.0.0.1:8000/elementary/#level-{{ x.level.number }}" data-width="" data-numposts="5"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+    <!--  Level Modal End  -->
+
+
+    <main id="main">
+
+        <!--   Header Start -->
+        <header>
+            <div class="header-navbar h-100">
+                <a class="navbar-brand" href="#" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{% static 'images/elementary/t20-logomark-white.svg' %}" alt="JECLAT T20 Logo"></b><span>Elementary</span></a>
+                <ul class="list-group menu text-center" id="menu">
+                    <li class="list-group-item"><a class="active" href="#home"><i class="lni-home"></i><span>Home</span></a></li>
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item" ><a href="#play"><i class="lni-play"></i><span>Play</span></a></li>
+                    <li class="list-group-item"><a href="#profile"><i class="lni-user"></i><span>Profile</span></a></li>
+                    <li class="list-group-item"><a href="#users"><i class="lni-users"></i><span>Players</span></a></li>
+                    {% endif %}
+                    <li class="list-group-item"><a href="#leaderboard"><i class="lni-heart-filled"></i><span>Leaderboard</span></a></li>
+                    <li class="list-group-item"><a href="#contact"><i class="lni-envelope"></i><span>Contact</span></a></li>
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item"><a href="{% url 'elementary:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
+                    {% endif %}
+                    <li class="list-group-item"><a href="https://linkedin.com/in/gurtej-singh-rehal-726a81129/" target="_blank"><i class="lni-reddit"></i><span>Developer</span></a></li>
+
+                </ul>
+                <div class="menu-toggler">
+                    <span>
+                        <i class="text-white lni-menu"></i>
+                    </span>
+                </div>
+            </div>
+        </header>
+        <!--   Header End   -->
+
+        <!--  Home Start  -->
+        <section id="home" class="hero-04 active">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row justify-content-center hero-item">
+                            <div class="col-lg-6">
+                                <div class="hero-content">
+
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-{{ message.level_tag }}" role="alert">
+
+                                        {% if message.level_tag == 'success' and message.extra_tags == 'normal_level' %}
+                                             <h4 class="alert-heading">Well done!</h4>
+                                        {% elif message.tags == 'warning' %}
+                                            <h4 class="alert-heading">Psst!</h4>
+                                        {% elif message.level_tag == 'success' and message.extra_tags == 'last_level' %}
+                                            <h4 class="alert-heading">Congratulations!</h4>
+                                        {% else %}
+                                            <h4 class="alert-heading">Gurtej here —</h4>
+                                        {% endif %}
+
+                                        {% if message.level_tag == 'success' and message.extra_tags == 'last_level' %}
+                                            <p>{{ message }}</p>
+                                        {% else %}
+                                            <p>{{ message }}</p>
+                                        {% endif %}
+
+                                        {% if message.level_tag == 'success' and message.extra_tags == 'normal_level' %}<hr>
+                                            <p class="mb-0">If you can dream it, you can do it.</p>
+                                        {% elif message.level_tag == 'success' and message.extra_tags == 'last_level' %}<hr>
+                                            <p class="mb-0">There is no real ending. It's just the place where you stop the story.</p>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    <h1 class="mb-3">Elementary</h1>
+                                    <h4 class="text-capitalize mb-0"><span class="base-color">Be  </span> <span class="element" data-elements="Ready.,Active.,Creative."></span></h4>
+                                    {% if user.is_authenticated %}
+                                     <p href="#" class="max-width-450 mx-0 my-4">Welcome, <span class="base-color">{{ userprofile.user.first_name }}</span></p>
+                                    {% else %}
+                                    <a href="#" class="max-width-450 mx-0 my-4 btn btn-info">Login</a>
+                                    <a href="#" class="max-width-450 mx-0 my-4 btn btn-primary"><i class="mr-3 lni-facebook-filled"></i> Login </a>
+                                    {% endif %}
+                                    <ul class="list-inline hero-social">
+                                        <li class="list-inline-item">
+                                            <a href="https://www.facebook.com/jeclatT20.jgec/">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="https://www.instagram.com/jeclat2k19/">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <a href="https://github.com/gurtejrehal">
+                                                <i class="fa fa-github"></i>
+                                            </a>
+                                        </li>
+                                        {% if user.is_authenticated %}
+                                        <li class="list-inline-item">
+                                            <a data-toggle="collapse" href="#collapseExample" id="notify-btn" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                <i class="lni-alarm"></i><span class="ml-2 badge badge-pill badge-success">Notifications <span class="badge badge-light" id="star"><i class='lni lni-star-filled'></i></span></span>
+                                              </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
+
+                                    {% if user.is_authenticated %}
+                                    <!--  Notifications  -->
+
+                                    <div class="card collapse text-white bg-info mb-3" id="collapseExample" >
+                                      <div class="card-header">Notifications</div>
+                                      <div class="card-body" style="max-height:18rem; overflow-y:auto;" id="style-4">
+<!--                                          {% for notification in notifications %}-->
+<!--                                          <div class="card-body">-->
+
+<!--                                            <h5 class="card-title">{{ notification.admin.username }} says —</h5>-->
+<!--                                            <p class="card-text">{{ notification.message }}</p>-->
+<!--                                            <p class="card-text"><small class="text-muted">posted {{ notification.whenpublished }}.</small></p>-->
+
+<!--                                          </div>-->
+<!--                                          <hr>-->
+<!--                                          {% endfor %}-->
+                                      </div>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hero-image">
+                                    <img src="{% static 'images/elementary/conan.png' %}" alt="/">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  Home End  -->
+
+
+        <!--   Profile Start   -->
+        {% for ass in backends.associated %}
+          {% if ass.provider == 'facebook' %}
+        <section id="profile" class="about">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">Welcome <span class="base-color">{{ass.extra_data.name}}</span></h2>
+                                    <p class="text-muted max-width-450 mb-5"></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="image-border">
+                                    <img src="{{ass.extra_data.picture.data.url}}" alt="{{ ass.extra_data.name }} Profile Picture">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-4 mt-lg-0">
+                                <div class="personal-item ">
+                                    <h3 class="text-dark mt-4 mt-lg-0"><span class="base-color">Progress</span> so far</h3>
+                                    <div class="row">
+
+                                        <div class="col-6 personal-info ">
+
+                                            <table class="table table-borderless table-dark box-hover-border mt-4">
+                                              <tr>
+                                                <th>Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
+                                                <td class="base-color">{{ quiztaker.correct_answers }}</td>
+                                              </tr>
+                                              <tr>
+                                                <th>Ongoing <i class='fa fa-spinner fa-spin ml-2'></i></th>
+                                                <td class="base-color">{% if not quiztaker.completed %} {{ quiztaker.correct_answers|add:1 }} {% endif %}</td>
+                                              </tr>
+                                            </table>
+<!--                                            <ul class="list-unstyled pt-4">-->
+
+<!--                                                {% for i in loop %}-->
+<!--                                                    <li>-->
+<!--                                                        <h6>Level {{ i }} : <span> Complete</span></h6>-->
+<!--                                                    </li>-->
+<!--                                                {% endfor %}-->
+
+<!--                                                {% if not quiztaker.completed %}-->
+<!--                                                     <li>-->
+<!--                                                        <h6>Level {{ quiztaker.correct_answers|add:1 }} : <span> Running</span></h6>-->
+<!--                                                    </li>-->
+<!--                                                {% endif %}-->
+
+<!--                                            </ul>-->
+                                        </div>
+                                        <div class="col-6 personal-info">
+                                            <ul class="list-unstyled pt-4">
+                                                <!--<li>-->
+                                                <!--    <h6>Profile : <span> <a href="{{ ass.extra_data.profile_url }}">link</a></span></h6>-->
+                                                <!--</li>-->
+                                                <li>
+                                                    <h6>Year : <span> {{ userprofile.year }}</span></h6>
+                                                </li>
+                                                <li>
+                                                    <h6>Department : <span> {{ userprofile.department }}</span></h6>
+                                                </li>
+                                                {% if ass.extra_data.email %}
+                                                <li>
+                                                    <h6>Mail : <span> {{ ass.extra_data.email }}</span></h6>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Count up Start -->
+                        <div id="count-up" class="count-up text-center box-border">
+                            <div class="row justify-content-center">
+                                <!-- Item-01 -->
+                                <div class="col-12 col-sm-6 col-lg-3 my-3 count-item ">
+                                    <div class="count-icon">
+                                         <i class="lni-emoji-smile base-color"></i>
+                                    </div>
+                                    <div class="my-3">
+                                        <span class="timer count-number" data-from="0" data-to="{{ userprofile.clear }}" data-speed="5000"></span>
+                                    </div>
+                                    <p class="mb-0">Level Completed</p>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <!--  Count up End  -->
+                        <!--  Prize Start  -->
+                        <div class="services">
+                            <div class="row mt-5 ">
+                                <div class="col-12">
+                                    <h3 class="mb-0 text-dark">Win <span class="base-color">Exciting Prizes</span></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Item 01 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-tshirt size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat T-Shirt</h5>
+                                            <p class="text-muted mb-0">Dont miss the chance to win the official JECLAT T20 T - Shirt.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 02 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-check-mark-circle size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat Hoodie</h5>
+                                            <p class="text-muted mb-0">JECLAT T20 Hoodie is the hot deal you can win. Get yourself ready.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 03 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-heart size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Prizes</h5>
+                                            <p class="text-muted mb-0">Win a lot more prizes apart from official JECLAT T20 Merchandise.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--   Prize End   -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--    Profile End    -->
+        {% endif %}
+        {% endfor %}
+
+        <!--    Leaderboard Start   -->
+        <section id="leaderboard" class="resume">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark"><span class="base-color">Leaderboard</span></h2>
+                                    <p class="text-muted max-width-450 mb-5">“Start where you are. Use what you have. Do what you can.” — Arthur Ashe.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--    TimeLine Start   -->
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <h3 class="text-dark">
+                                    <i class="lni-drupal-original base-color"></i>
+                                    Top
+                                </h3>
+                                <div class="timeline-items box-border">
+                                    {% for rank in top_ranks %}
+                                    <!--    Item 01   -->
+                                    <div class="timeline-item">
+                                        <img class="number-icon" src="https://img.icons8.com/plasticine/100/000000/{{ forloop.counter}}.png">
+                                        <div class="timeline-contents">
+                                            <div class="time-line-header">
+                                                <h6 class="timeline-title"><a style="color:white" href="{% url 'elementary:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></h6>
+                                                <p class="timeline-year">{{ rank.user.college|upper }}</p>
+                                            </div>
+                                            <div class="timeline-content">
+                                                <p><span class="base-color mr-2">Year:</span>{{ rank.user.year }}
+                                                    {% if rank.completed %}
+                                                        <span class="ml-2 mr-3 base-color">Level:</span>Complete</p>
+                                                    {% else %}
+                                                        <span class="ml-2 mr-3 base-color">Level:</span>{{ rank.correct_answers|add:1 }}</p>
+                                                    {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--    TimeLine End   -->
+                        <!--  Rank Start  -->
+                        <div class="row mt-5 justify-content-center">
+                            <!-- Rank -->
+
+                            <div class="col-12">
+
+                                <table class="table table-borderless table-dark box-border text-center">
+                                      <thead class="base-color">
+                                        <tr>
+                                          <th scope="col">Rank</th>
+                                          <th scope="col">Name</th>
+                                          <th scope="col">Level</th>
+                                          <th scope="col">Year</th>
+                                          <th scope="col">College</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for rank in rest_ranks %}
+                                        <tr>
+                                          <th scope="row">{{ forloop.counter|add:3 }}</th>
+                                          <td><a style="color:white" href="{% url 'elementary:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></td>
+                                          {% if rank.completed %}
+                                            <td>Complete</td>
+                                          {% else %}
+                                             <td>{{ rank.correct_answers|add:1 }}</td>
+                                          {% endif %}
+                                          <td>{{ rank.user.year }}</td>
+                                          <td>{{ rank.user.college|upper }}</td>
+                                        </tr>
+                                       {% endfor %}
+                                      </tbody>
+                                    </table>
+
+                            </div>
+                        </div>
+                        <!--   Skill End   -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--     Leaderboard End    -->
+
+
+        <!--  Level Start  -->
+        <section id="play" class="blog">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">Unlock <span class="base-color">Level</span></h2>
+                                    <p class="text-muted mb-5 max-width-450">Clear each level to get on the next stage.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                                {% for x in all_levelpublish %}
+
+                                        {% if x.publish %}
+                            <!--  Item 01 -->
+                            <div class="col-lg-4">
+                                <div class="blog-item box-border">
+                                    <div class="blog-image">
+                                        <div class="blog-intro">
+                                            {% if x.level.audio %}
+                                            <img href="#level-{{ x.level.number }}" target="_blank" data-toggle="modal" data-target="#level-{{ x.level.number }}" src="{% static 'images/elementary/music_image.png' %}" alt="Level {{ x.level.number|add:1 }} picture">
+                                            {% else %}
+                                            <img href="#level-{{ x.level.number }}" target="_blank" data-toggle="modal" data-target="#level-{{ x.level.number }}" src="{{ x.level.picture.url }}" alt="Level {{ x.level.number|add:1 }} picture">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="blog-content">
+                                        <ul class="list-inline mt-4">
+                                                <li class="list-inline-item">
+                                                    <i class="lni-calendar base-color"></i>
+                                                    <span class="text-muted">{{ x.level.daypublished }} {{ x.level.monthpublished }}, {{ x.level.yearpublished }} </span>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <i class="lni-comment base-color"></i>
+                                                    <span class="text-muted"><span class="fb-comments-count" data-href="http://127.0.0.1:8000/elementary/#level-{{ x.level.number }}"></span></span>
+                                                </li>
+                                                {% if quiztaker.correct_answers != x.level.number %}
+                                                <li class="list-inline-item mt-2">
+                                                    <i class="lni-emoji-cool base-color"></i>
+                                                    <span class="text-muted">Complete</span>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                            <h5 class="mb-3"><a class="text-dark" href="#level-{{ x.level.number }}" target="_blank" data-toggle="modal" data-target="#level-{{ x.level.number }}"> {{ x.level.title }}</a></h5>
+                                        <p>{{ x.level.description|safe|truncatewords:"50"|linebreaks }}</p>
+                                        <div class="blog-link">
+                                            <a class="base-color"  href="#level-{{ x.level.number }}" target="_blank" data-toggle="modal" data-target="#level-{{ x.level.number }}">
+                                                {% if quiztaker.correct_answers != x.level.number %}Read Comments {% else %} Play Now {% endif %}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                    {% endif %}
+
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--   Level End   -->
+
+         <!-- Portfolio Start -->
+        <section id="users" class="portfolio">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">Know <span class="base-color"> your Opponents</span></h2>
+                                    <p class="text-muted mb-5 max-width-450"> If you know neither the enemy nor yourself, you will succumb in every battle.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <!--   Portfolio Filters   -->
+                            <div class="col-lg-6 form-item" >
+                                <div class="form-group">
+                                    {% csrf_token %}
+                                    <input name="search" id="search" type="text" class="form-control" placeholder="Search any combination of name or email..." required >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center" id="search-result"></div>
+
+                        <div class="portfolio-items row ">
+
+<!--                            {% for userprofile in all_userprofiles %}-->
+<!--                            &lt;!&ndash; Item 01 &ndash;&gt;-->
+<!--                            <div class="col-lg-4 portfolio-item seo">-->
+<!--                                <div class="image-border">-->
+<!--                                    <div class="portfolio-item-content">-->
+<!--                                        <img src="{{ userprofile.picture_url }}" alt="{{ userprofile.user.username }} photo" class="img-fluid">-->
+<!--                                        <div class="img-overlay text-center">-->
+<!--                                            <div class="img-overlay-content">-->
+<!--                                                <div class="portfolio-icon">-->
+<!--                                                    <a href="{% url 'elementary:profile' userprofile.user.username %}"><button type="button" ><i class="lni-user"></i></button></a>-->
+<!--                                                    <a href="{{ userprofile.picture_url }}" class="js-zoom-gallery">-->
+<!--                                                        <i class="lni-zoom-in"></i>-->
+<!--                                                    </a>-->
+<!--                                                </div>-->
+<!--                                                <h5 class="mt-3 mb-0">{{ userprofile.user.username }}</h5>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            {% endfor %}-->
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  Portfolio End  -->
+
+
+
+        <!-- Contact Start -->
+        <section id="contact" class="section pp-scrollable contact  ">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">Get <span class="base-color">in Touch</span></h2>
+                                    <p class="text-muted mb-5 max-width-450">“Nothing will work unless you do.” — Maya Angelou.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row contact-info justify-content-center">
+                            <div class="col-lg-4 mt-5">
+                                <div class="text-center">
+                                    <div class="base-color">
+                                        <i class="lni-phone-handset size-md"></i>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h5 class="text-dark mb-0">Contact</h5>
+                                        <small class="text-muted">Priyam: +91 7908885650</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 mt-5">
+                                <div class="text-center">
+                                    <div class="base-color">
+                                        <i class="lni-pointer size-md"></i>
+                                    </div>
+                                    <div class="mt-3">
+                                        <h5 class="text-dark mb-0">Email Us At</h5>
+                                        <small class="text-muted">info@jeclatt20.com</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mt-5 contact-form">
+                                <form id="contactForm">
+
+                                    {% csrf_token %}
+
+                                    <input name="contact" id="contact" type="hidden" value="True">
+
+                                    <div class="row">
+                                        <div class="col-lg-6 form-item">
+                                            <div class="form-group">
+                                                <input name="name" id="name" type="text" class="form-control" placeholder="Your Name*" required >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 form-item">
+                                            <div class="form-group">
+                                                <input name="email" id="email" type="email" class="form-control" placeholder="Your Email*" required >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 form-item">
+                                            <div class="form-group">
+                                                  <select name="department" id="department" class="form-control" required>
+                                                    <option>IT</option>
+                                                    <option>CSE</option>
+                                                    <option>ECE</option>
+                                                    <option>CE</option>
+                                                    <option>ME</option>
+                                                    <option>EE</option>
+
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 form-item">
+                                            <div class="form-group">
+                                                  <select name="year" id="year" class="form-control" required>
+                                                    <option>Freshie</option>
+                                                    <option>2nd</option>
+                                                    <option>3rd</option>
+                                                    <option>Godfather</option>
+                                                  </select>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 form-item">
+                                            <div class="form-group">
+                                                <input name="subject" id="subject" type="text" class="form-control" placeholder="Your Subject*" required >
+                                            </div>
+                                        </div>
+                                        <div class="col-12 form-item">
+                                            <div class="form-group">
+                                                <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Your message..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 mt-4 text-left">
+                                            <div class="button-border">
+                                                <a href="javascript:void(0)" class="pill-button" id="submit-btn" onclick="sendEmail()">Send Message</a>
+                                            </div>
+                                            <div id="message" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000" >
+                                                <div class="toast-body d-inline-block"></div>
+                                                <button type="button" class="pr-3 close" data-dismiss="toast" aria-label="Close">
+                                                    <span aria-hidden="true" class="lni-close size-xs "></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row copy-right">
+                            <div class="col-12 text-center">
+                                <p>Copyright © 2020. Created by <a href="https://github.com/gurtejrehal"><span class="base-color">Gurtej Rehal</span></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--  Contact End  -->
+
+        <a class="color-scheme hide text-white bg-base-color d-inline-block" href="javascript:void(0)"><i class="lni-sun"></i></a>
+        <a class="color-scheme hide color-scheme-light text-white bg-base-color d-none" href="javascript:void(0)"><i class="lni-night"></i></a>
+
+
+        <!-- Start Color Pallet -->
+        <div id="color-switcher" class="color-switcher" >
+            <div class="text-center color-pallet hide">
+                <h6 class="text-center mt-3">Select your color</h6>
+                <ul class="pattern">
+                    <li>
+                        <a class="color1" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color2" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color3" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color4" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color5" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color6" href="#"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pallet-button hide">
+                <a href="#" class="cp-toggle rounded-left"><i class="fa fa-cog fa-spin"></i></a>
+            </div>
+
+        </div>
+        <!-- End Color Pallet -->
+
+
+
+
+
+    </main>
+
+    <audio width="0" height="0" id="level_up">
+	  <source src="{% static 'audio/level_up' %}-{{ value }}.mp3" type="audio/mp3">
+	  Your browser does not support the audio element.
+	</audio>
+
+    <audio width="0" height="0" id="end">
+	  <source src="{% static 'audio/end.mp3' %}" type="audio/mp3">
+	  Your browser does not support the audio element.
+	</audio>
+
+
+
+    <!--  JavaScripts  -->
+    <script src="{% static 'js/elementary/jquery-3.4.1.min.js' %}"></script>
+<script src="https://cdn.js' %}delivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!--  Plugin Js  -->
+    <script src="{% static 'js/elementary/plugins.js' %}"></script>
+    <!--  Particle Js  -->
+    <script src="{% static 'js/elementary/particles-01.min.js' %}"></script>
+    <!--  particles app Js  -->
+    <script src="{% static 'js/elementary/particles-01.app.js' %}"></script>
+    <!--  Custom JS  -->
+    <script src="{% static 'js/elementary/arshia.js' %}"></script>
+
+    <script>
+
+$(function
+
+    setTimeout(function(){
+        $('.alert').slideUp(2000);
+
+    }, 30000);
+
+});
+
+
+    </script>
+
+    <script>
+        {% if messages %}
+          {% for message in messages %}
+             {% if message.level_tag == 'success' and message.extra_tags == 'normal_level' %}
+
+                    $("#level_up")[0].play();
+                        setTimeout(function(){
+                            $('.alert').slideUp(500);
+
+                        }, 30000);
+
+              {% elif message.level_tag == 'success' and message.extra_tags == 'last_level' %}
+
+                    $("#end")[0].play();
+                    setTimeout(function(){
+                            $('.alert').slideUp(500);
+
+                        }, 30000);
+
+              {% else %}
+
+                    setTimeout(function(){
+                            $('.alert').slideUp(500);
+
+                        }, 30000);
+
+             {% endif %}
+          {% endfor %}
+        {% endif %}
+
+    </script>
+
+    <script>
+
+$('#notify-btn').click(function() {
+
+            $("#star").toggle();
+
+    $.ajax({
+            url: "/elementary/notifications/",
+            type: "GET",
+            success: function(response){
+                console.log(response)
+                $("#style-4").html(response);
+            }
+
+        });
+
+});
+
+    </script>
+
+    <script>
+$('#search').keyup(function() {
+    data = {
+            "query" : $('#search').val(),
+            "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+     }
+    console.log(data)
+    $.ajax({
+            url: "/elementary/search/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response)
+                if (data['query'] == "") $("#search-result").html("")
+                else {
+                    $("#search-result").html(response)
+                    }
+            }
+
+        });
+
+});
+
+    </script>
+
+    </body>
+
+</html>
