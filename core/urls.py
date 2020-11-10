@@ -1,8 +1,14 @@
 from core import views
-from django.urls import path, include
+from django.urls import path
 
 app_name = 'core'
 
 urlpatterns = [
-    path('home/', views.index, name='index'),
+    path('play/', views.index, name='index'),
+    path('answer/', views.answer, name='answer'),
+    path('search/', views.search, name='search'),
+    path('notifications/', views.notifications, name='notifications'),
+    path('profile/<username>/', views.profile, name='profile'),
+    path('settings/', views.settings, name='settings'),
+    path('logout/', views.logout_view, name='logout'),
 ]

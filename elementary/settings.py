@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [
@@ -131,5 +133,5 @@ MEDIA_URL = '/media/'
 REGISTRATION_AUTO_LOGIN = True
 
 LOGIN_URL = 'auth_login'
-LOGIN_REDIRECT_URL = 'core:index'
+LOGIN_REDIRECT_URL = 'core:settings'
 LOGOUT_REDIRECT_URL = '/'

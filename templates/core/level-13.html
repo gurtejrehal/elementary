@@ -1,0 +1,48 @@
+<!--
+Developed by: Gurtej Singh Rehal ( ͡° ͜ʖ ͡°)
+Jalpaiguri Government Engineering College
+-->
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Escape Room</title>
+  <link rel="stylesheet" href="{% static 'css/elementary/level-13-style.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html class="no-js" lang="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<title>Escape Room</title>  
+<body>
+    <div class='assembly'>
+      <div class='plane plane0'>
+        <div class='door'>
+          <div class='doorknob'></div>
+        </div>
+      </div>
+      <div class='plane plane1'></div>
+      <div class='plane plane2'><div class='key'></div></div>
+      <div class='plane plane3'></div>
+    </div>
+    <!-- An invisible overlay to catch hover events -->
+    <div class='fakeassembly'>
+      <div class='turnleft'></div>
+      <div class='turnright'></div>
+    </div>
+  </body>
+</html>
+<!-- partial -->
+  <script  src="{% static 'js/elementary/level-13-script.js' %}"></script>
+
+</body>
+</html>

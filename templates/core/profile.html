@@ -1,0 +1,324 @@
+<!--
+Developed by: Gurtej Singh Rehal ( ͡° ͜ʖ ͡°)
+Jalpaiguri Government Engineering College
+-->
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+    
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Jeclat T20 - Elementary</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="Retrina Group" />
+
+        <!--  FavIcon  -->
+        <link rel="shortcut icon" href="{% static 'images/t20_main/t20-logomark-black.ico' %}" type="favicon.png" />
+
+        <!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Muli:300,400,600" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0"></script>
+
+        <!-- Plugin Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/plugins.css' %}">
+        <!-- Colors Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/color/yellow-color.css' %}" id="option-color">
+        <!--  Custom Style CSS  -->
+        <link rel="stylesheet" href="{% static 'css/elementary/style.css' %}">
+
+    <script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{2268418690128685}',
+      cookie     : true,
+      xfbml      : true,
+      version    : '{6}'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+    </head>
+    <body data-spy="scroll" data-target="#scrollspy" data-offset="1" class="arshia-dark">
+
+
+    <!--  Pre Loader  -->
+    <div id="overlayer"></div>
+    <span class="loader"></span>
+
+
+
+
+
+
+
+
+    <main id="main">
+
+        <!--   Header Start -->
+        <header>
+            <div class="header-navbar h-100">
+                <a class="navbar-brand" href="{% url 't20_main:index' %}" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{% static 'images/elementary/t20-logomark-white.svg' %}" alt=""></b><span>Elementary</span></a>
+                <ul class="list-group menu text-center" id="menu">
+                    <li class="list-group-item"><a href="{% url 'elementary:index' %}"><i class="lni-home"></i><span>Home</span></a></li>
+
+                    {% if user.is_authenticated %}
+                    <li class="list-group-item"><a href="{% url 'elementary:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
+                    {% endif %}
+                </ul>
+                <div class="menu-toggler">
+                    <span>
+                        <i class="text-white lni-menu"></i>
+                    </span>
+                </div>
+            </div>
+        </header>
+        <!--   Header End   -->
+
+
+
+
+        <!--   About Start   -->
+
+        <section id="about" class="about active">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">{{ quiztaker.user.user.first_name }} <span class="base-color">{{ quiztaker.user.user.last_name }}</span></h2>
+                                    <p class="text-muted max-width-450 mb-5">In a world without gold we might've been heroes!</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="image-border">
+                                    <img src="{{ quiztaker.user.picture_url }}" alt="/">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-4 mt-lg-0">
+                                <div class="personal-item ">
+                                    <h3 class="text-dark mt-4 mt-lg-0"><span class="base-color">Progress</span> so far</h3>
+                                    <div class="row">
+                                        <div class="col-6 personal-info">
+                                            <ul class="list-unstyled pt-4">
+
+                                                {% for i in loop %}
+                                                    <li>
+                                                        <h6>Level {{ i }} : <span> Complete</span></h6>
+                                                    </li>
+                                                {% endfor %}
+
+                                                {% if not quiztaker.completed %}
+                                                     <li>
+                                                        <h6>Level {{ quiztaker.correct_answers|add:1 }} : <span> Running</span></h6>
+                                                    </li>
+                                                {% endif %}
+
+                                            </ul>
+                                        </div>
+                                        <div class="col-6 personal-info">
+                                            <ul class="list-unstyled pt-4">
+
+                                                <li>
+                                                    <h6>Year : <span class="base-color"> {{ quiztaker.user.year }}</span></h6>
+                                                </li>
+                                                <li>
+                                                    <h6>Department : <span class="base-color"> {{ quiztaker.user.department }}</span></h6>
+                                                </li>
+                                                <li>
+                                                    <h6>College : <span class="base-color"> {{ quiztaker.user.college }}</span></h6>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Count up Start -->
+                        <div id="count-up" class="count-up text-center box-border">
+                            <div class="row justify-content-center">
+                                <!-- Item-01 -->
+                                <div class="col-12 col-sm-6 col-lg-3 my-3 count-item ">
+                                    <div class="count-icon">
+                                         <i class="lni-emoji-smile base-color"></i>
+                                    </div>
+                                    <div class="my-3">
+                                        <span class="timer count-number" data-from="0" data-to="{{ quiztaker.correct_answers }}" data-speed="5000">{{ quiztaker.correct_answers }}</span>
+                                    </div>
+                                    <p class="mb-0">Level Completed</p>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <!--  Count up End  -->
+                        <!--  Service Start  -->
+                        <div class="services">
+                            <div class="row mt-5 ">
+                                <div class="col-12">
+                                    <h3 class="mb-0 text-dark">Win <span class="base-color">Exciting Prizes</span></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Item 01 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-tshirt size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat T-Shirt</h5>
+                                            <p class="text-muted mb-0">Dont miss the chance to win the official JECLAT T20 T - Shirt.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 02 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-check-mark-circle size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat Hoodie</h5>
+                                            <p class="text-muted mb-0">JECLAT T20 Hoodie is the hot deal you can win. Get yourself ready.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 03 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-heart size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Prizes</h5>
+                                            <p class="text-muted mb-0">Win a lot more prizes apart from official JECLAT T20 Merchandise.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--   Service End   -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--    About End    -->
+
+
+
+        <a class="color-scheme hide text-white bg-base-color d-inline-block" href="javascript:void(0)"><i class="lni-sun"></i></a>
+        <a class="color-scheme hide color-scheme-light text-white bg-base-color d-none" href="javascript:void(0)"><i class="lni-night"></i></a>
+
+
+        <!-- Start Color Pallet -->
+        <div id="color-switcher" class="color-switcher" >
+            <div class="text-center color-pallet hide">
+                <h6 class="text-center mt-3">Select your color</h6>
+                <ul class="pattern">
+                    <li>
+                        <a class="color1" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color2" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color3" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color4" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color5" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="color6" href="#"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pallet-button hide">
+                <a href="#" class="cp-toggle rounded-left"><i class="fa fa-cog fa-spin"></i></a>
+            </div>
+
+        </div>
+        <!-- End Color Pallet -->
+
+
+
+
+
+    </main>
+
+
+
+    <!--  JavaScripts  -->
+    <script src="{% static 'js/elementary/jquery-3.4.1.min.js' %}"></script>
+<script src="https://cdn.js' %}delivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!--  Plugin Js  -->
+    <script src="{% static 'js/elementary/plugins.js' %}"></script>
+    <!--  Particle Js  -->
+    <script src="{% static 'js/elementary/particles-01.min.js' %}"></script>
+    <!--  particles app Js  -->
+    <script src="{% static 'js/elementary/particles-01.app.js' %}"></script>
+    <!--  Custom JS  -->
+    <script src="{% static 'js/elementary/arshia.js' %}"></script>
+
+    <script>
+
+   $('#answerForm').submit(function() {
+    var data = $("#answerForm").serialize();
+
+<!--    data = {-->
+<!--        "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val(),-->
+<!--        "level_no": $("#level_no").val(),-->
+<!--        "answer": $("#blog-name").val(),-->
+
+
+<!--    }-->
+    console.log(data);
+        $.ajax({
+            url: "/elementary/answer/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response)
+                if (response['reply'] == 0){
+                    alert("Wrong answer");
+
+                }
+
+            }
+
+        });
+
+    });
+
+    </script>
+
+    </body>
+
+</html>

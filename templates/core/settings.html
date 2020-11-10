@@ -1,0 +1,191 @@
+<!--
+Developed by: Gurtej Singh Rehal ( ͡° ͜ʖ ͡°)
+Jalpaiguri Government Engineering College
+-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Elementary - Complete your Profile</title>
+
+    <link rel="shortcut icon" href="{% static 'images/t20_main/t20-logomark-black.ico' %}" type="favicon.png" />
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,300,700);
+@import url(https://fonts.googleapis.com/css?family=Dosis:300,400,700);
+
+.shadow {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.section-title{
+    font-family:"Dosis";
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.5em;
+    line-height: 1.4;
+}
+
+.font-alt1{
+    font-family:"Dosis";
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    line-height: 1.4;
+    font-weight: 400;
+
+
+}
+
+.font-alt{
+    font-family:"Dosis";
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+        body{
+            overflow-x: hidden;
+            background: #202020 !important;
+        }
+    </style>
+    <!-- Plugin Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/plugins.css' %}">
+        <!-- Colors Css -->
+        <link rel="stylesheet" href="{% static 'css/elementary/color/yellow-color.css' %}" id="option-color">
+        <!--  Custom Style CSS  -->
+        <link rel="stylesheet" href="{% static 'css/elementary/style.css' %}">
+</head>
+<body>
+
+
+
+<div class="row justify-content-center" style="transform: translateY(30%)">
+
+    <div class="col-md-4">
+
+        <div class="card shadow box-border" style="">
+            <div class="card-body ">
+            <form action="{% url 'core:settings' %}" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+                            <div class="row font-alt">
+                                <div class="form-group col-md-6">
+                                    <label for="firstname">First Name</label>
+                                    <input type="text" name="firstname" class="form-control" id="firstname" aria-describedby="emailHelp">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="lastname">Last Name</label>
+                                    <input type="text" name="lastname" class="form-control" id="lastname">
+                                  </div>
+
+
+                            </div>
+
+                            <div class="row font-alt mt-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="gender">Select your gender</label>
+                                    <select name="gender" id="gender" class="form-control" required>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Transgender</option>
+                                      </select>
+
+                                  </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="picture">Upload Your Profile Picture</label>
+                                            <input type="file" name="picture" class="form-control-file" id="picture">
+                                          </div>
+                                </div>
+
+                            </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 form-item font-alt mt-4">
+                                            <div class="form-group" >
+                                                <label for="department">Select your Department</label>
+                                                  <select name="department" id="department" class="form-control" required>
+                                                    <option>IT</option>
+                                                    <option>CSE</option>
+                                                    <option>ECE</option>
+                                                    <option>CE</option>
+                                                    <option>ME</option>
+                                                    <option>EE</option>
+
+                                                  </select>
+
+                                            </div>
+                                        </div>
+
+                                    <div class="col-lg-6 form-item font-alt">
+                                            <div class="form-group">
+                                                <label for="department">Select your Year</label>
+                                                  <select name="year" id="year" class="form-control" required>
+                                                    <option>Freshie</option>
+                                                    <option>2nd</option>
+                                                    <option>3rd</option>
+                                                    <option>Godfather</option>
+                                                    <option>Alumni</option>
+                                                  </select>
+                                            </div>
+                                            </div>
+
+                                </div>
+
+
+
+
+                                        <div class="col-lg-12 form-item font-alt" >
+                                            <div class="form-group">
+                                                <label for="college">Enter your College Name</label>
+                                                <input name="college" id="college" type="text" class="form-control" placeholder="College" required>
+                                            </div>
+                                        </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <input class="btn btn-dark mb-4 font-alt" type="submit" >
+                </div>
+            </div>
+
+    </form>
+
+            </div>
+
+
+
+        </div><!--cardend-->
+    </div>
+
+
+</div>
+
+
+
+<script src="{% static 'js/elementary/jquery-3.4.1.min.js' %}"></script>
+<script src="https://cdn.js' %}delivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script>
+$("#year").change(function() {
+  if ($(this).val() == "Jolumni") {
+    $('#college').attr('type', 'hidden');
+    $('#college').attr('value', 'JGEC');
+  } else {
+    $('#college').attr('type', 'text');
+    $('#college').attr('value', '');
+  }
+});
+$("#year").trigger("change");
+</script>
+
+</body>
+</html>

@@ -24,7 +24,7 @@ def redirect_login(request):
     if not request.user.is_authenticated:
         return redirect('auth_login')
     else:
-        return redirect('core:index')
+        return redirect('core:settings')
 
 
 urlpatterns = [

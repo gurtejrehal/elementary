@@ -62,7 +62,7 @@ Jalpaiguri Government Engineering College
     <span class="loader"></span>
 
 
-     <!-- Blog Single Modal Start -->
+     <!-- Login Single Modal Start -->
     <div class="blog-single modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="blogModalScrollable" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
@@ -126,10 +126,7 @@ Jalpaiguri Government Engineering College
             </div>
         </div>
     </div>
-    <!--  Blog Single Modal End  -->
-
-
-
+    <!--  Login Single Modal End  -->
 
 
 
@@ -287,7 +284,7 @@ Jalpaiguri Government Engineering College
                                         {% elif message.level_tag == 'success' and message.extra_tags == 'last_level' %}
                                             <h4 class="alert-heading">Congratulations!</h4>
                                         {% else %}
-                                            <h4 class="alert-heading">Gurtej here —</h4>
+                                            <h4 class="alert-heading">Admin here —</h4>
                                         {% endif %}
 
                                         {% if message.level_tag == 'success' and message.extra_tags == 'last_level' %}
@@ -312,6 +309,8 @@ Jalpaiguri Government Engineering College
                                     {% else %}
                                     <a href="login-modal" data-toggle="modal" data-target="#login-modal" class="max-width-450 mx-0 my-4 btn btn-info">Login</a>
                                     <a href="#" class="max-width-450 mx-0 my-4 btn btn-primary"><i class="mr-3 lni-facebook-filled"></i> Login </a>
+                                    <a href="/accounts/register/" class="max-width-450 mx-0 my-4 btn btn-info">Register</a>
+
                                     {% endif %}
                                     <ul class="list-inline hero-social">
                                         <li class="list-inline-item">
@@ -523,8 +522,155 @@ Jalpaiguri Government Engineering College
             </div>
         </section>
         <!--    Profile End    -->
+
         {% endif %}
         {% endfor %}
+
+        <section id="profile" class="about">
+            <div class="display-table">
+                <div class="display-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="text-center title">
+                                    <h2 class="text-dark">Welcome <span class="base-color">{{ userprofile.user.first_name }}</span></h2>
+                                    <p class="text-muted max-width-450 mb-5"></p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="image-border">
+                                    <img src="{{userprofile.picture.url}}" alt="{{ userprofile.user.first_name }} Profile Picture">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-4 mt-lg-0">
+                                <div class="personal-item ">
+                                    <h3 class="text-dark mt-4 mt-lg-0"><span class="base-color">Progress</span> so far</h3>
+                                    <div class="row">
+
+                                        <div class="col-6 personal-info ">
+
+                                            <table class="table table-borderless table-dark box-hover-border mt-4">
+                                              <tr>
+                                                <th>Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
+                                                <td class="base-color">{{ quiztaker.correct_answers }}</td>
+                                              </tr>
+                                              <tr>
+                                                <th>Ongoing <i class='fa fa-spinner fa-spin ml-2'></i></th>
+                                                <td class="base-color">{% if not quiztaker.completed %} {{ quiztaker.correct_answers|add:1 }} {% endif %}</td>
+                                              </tr>
+                                            </table>
+<!--                                            <ul class="list-unstyled pt-4">-->
+
+<!--                                                {% for i in loop %}-->
+<!--                                                    <li>-->
+<!--                                                        <h6>Level {{ i }} : <span> Complete</span></h6>-->
+<!--                                                    </li>-->
+<!--                                                {% endfor %}-->
+
+<!--                                                {% if not quiztaker.completed %}-->
+<!--                                                     <li>-->
+<!--                                                        <h6>Level {{ quiztaker.correct_answers|add:1 }} : <span> Running</span></h6>-->
+<!--                                                    </li>-->
+<!--                                                {% endif %}-->
+
+<!--                                            </ul>-->
+                                        </div>
+                                        <div class="col-6 personal-info">
+                                            <ul class="list-unstyled pt-4">
+                                                <!--<li>-->
+                                                <!--    <h6>Profile : <span> <a href="{{ ass.extra_data.profile_url }}">link</a></span></h6>-->
+                                                <!--</li>-->
+                                                <li>
+                                                    <h6>Year : <span> {{ userprofile.year }}</span></h6>
+                                                </li>
+                                                <li>
+                                                    <h6>Department : <span> {{ userprofile.department }}</span></h6>
+                                                </li>
+                                                {% if userprofile.user.email %}
+                                                <li>
+                                                    <h6>Mail : <span> {{ userprofile.user.email }}</span></h6>
+                                                </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Count up Start -->
+                        <div id="count-up" class="count-up text-center box-border">
+                            <div class="row justify-content-center">
+                                <!-- Item-01 -->
+                                <div class="col-12 col-sm-6 col-lg-3 my-3 count-item ">
+                                    <div class="count-icon">
+                                         <i class="lni-emoji-smile base-color"></i>
+                                    </div>
+                                    <div class="my-3">
+                                        <span class="timer count-number" data-from="0" data-to="{{ userprofile.clear }}" data-speed="5000"></span>
+                                    </div>
+                                    <p class="mb-0">Level Completed</p>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <!--  Count up End  -->
+                        <!--  Prize Start  -->
+                        <div class="services">
+                            <div class="row mt-5 ">
+                                <div class="col-12">
+                                    <h3 class="mb-0 text-dark">Win <span class="base-color">Exciting Prizes</span></h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Item 01 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-tshirt size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat T-Shirt</h5>
+                                            <p class="text-muted mb-0">Dont miss the chance to win the official JECLAT T20 T - Shirt.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 02 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-check-mark-circle size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Jeclat Hoodie</h5>
+                                            <p class="text-muted mb-0">JECLAT T20 Hoodie is the hot deal you can win. Get yourself ready.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Item 03 -->
+                                <div class="col-lg-4 text-left">
+                                    <div class="services-item box-hover-border">
+                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
+                                            <i class="lni-heart size-md base-color"></i>
+                                        </div>
+                                        <div class="services-content">
+                                            <h5 class="mb-3">Prizes</h5>
+                                            <p class="text-muted mb-0">Win a lot more prizes apart from official JECLAT T20 Merchandise.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--   Prize End   -->
+
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!--    Leaderboard Start   -->
         <section id="leaderboard" class="resume">
@@ -983,7 +1129,7 @@ $('#notify-btn').click(function() {
             $("#star").toggle();
 
     $.ajax({
-            url: "/elementary/notifications/",
+            url: "/notifications/",
             type: "GET",
             success: function(response){
                 console.log(response)
@@ -1004,7 +1150,7 @@ $('#search').keyup(function() {
      }
     console.log(data)
     $.ajax({
-            url: "/elementary/search/",
+            url: "/search/",
             type: "POST",
             data: data,
             success: function(response){
