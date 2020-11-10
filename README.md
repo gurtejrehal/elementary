@@ -15,6 +15,7 @@ Social media platform for users to search other players and check stats.
 Each Level has it own comment thread to discuss with each other just in case if your stuck.
 Unbeatable protection against cheaters and hackers.
 FB, Google+ and GitHuB Social Logi support.
+Developed on Django.
 
 
 ## Features
