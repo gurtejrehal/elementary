@@ -3,13 +3,13 @@ Developed by: Gurtej Singh Rehal ( ͡° ͜ʖ ͡°)
 Jalpaiguri Government Engineering College
 -->
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 <html lang="en">
     
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Jeclat T20 - Elementary</title>
+        <title>Elementary</title>
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <meta name="author" content="Retrina Group" />
@@ -74,12 +74,12 @@ Jalpaiguri Government Engineering College
         <!--   Header Start -->
         <header>
             <div class="header-navbar h-100">
-                <a class="navbar-brand" href="{% url 't20_main:index' %}" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{% static 'images/elementary/t20-logomark-white.svg' %}" alt=""></b><span>Elementary</span></a>
+                <a class="navbar-brand" href="#" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{% static 'images/elementary/t20-logomark-white.svg' %}" alt=""></b><span>Elementary</span></a>
                 <ul class="list-group menu text-center" id="menu">
-                    <li class="list-group-item"><a href="{% url 'elementary:index' %}"><i class="lni-home"></i><span>Home</span></a></li>
+                    <li class="list-group-item"><a href="{% url 'core:index' %}"><i class="lni-home"></i><span>Home</span></a></li>
 
                     {% if user.is_authenticated %}
-                    <li class="list-group-item"><a href="{% url 'elementary:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
+                    <li class="list-group-item"><a href="{% url 'core:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
                     {% endif %}
                 </ul>
                 <div class="menu-toggler">
@@ -109,7 +109,7 @@ Jalpaiguri Government Engineering College
                             </div>
                             <div class="col-lg-6">
                                 <div class="image-border">
-                                    <img src="{{ quiztaker.user.picture_url }}" alt="/">
+                                    <img src="{{ quiztaker.user.picture.url }}" alt="/">
                                 </div>
                             </div>
                             <div class="col-lg-6 mt-4 mt-lg-0">

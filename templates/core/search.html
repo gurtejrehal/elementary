@@ -4,12 +4,12 @@
 <div class="col-lg-4 portfolio-item seo">
     <div class="image-border">
         <div class="portfolio-item-content">
-            <img src="{{ userprofile.picture_url }}" alt="{{ userprofile.user.username }} photo" class="img-fluid">
+            <img src="{{ userprofile.picture.url }}" alt="{{ userprofile.user.username }} photo" class="img-fluid">
             <div class="img-overlay text-center">
                 <div class="img-overlay-content">
                     <div class="portfolio-icon">
-                        <a href="{% url 'elementary:profile' userprofile.user.username %}"><button type="button" ><i class="lni-user"></i></button></a>
-                        <a href="{{ userprofile.picture_url }}" class="js-zoom-gallery">
+                        <a href="{% url 'core:profile' userprofile.user.username %}"><button type="button" ><i class="lni-user"></i></button></a>
+                        <a href="{{ userprofile.picture.url }}" class="js-zoom-gallery">
                             <i class="lni-zoom-in"></i>
                         </a>
                     </div>
