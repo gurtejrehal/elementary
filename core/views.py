@@ -33,6 +33,7 @@ def index(request):
         context_dict["userprofile"] = userprofile
         context_dict["quiztaker"] = quiztaker
         context_dict["loop"] = loop
+        context_dict["dark_mode"] = userprofile.dark_mode
 
         if userprofile.is_previously_logged:
             all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)[::-1]
@@ -261,6 +262,22 @@ def notifications(request):
         'notifications': notifications
     }
     return render(request, 'core/notifications.html', context=context)
+
+
+def toggle_mode(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            mode = str(request.POST['dark_mode'])
+        else:
+            mode = ""
+
+        userprofile = UserProfile.objects.get(user=request.user)
+        if mode == "on":
+            userprofile.dark_mode = True
+        else:
+            userprofile.dark_mode = False
+        userprofile.save()
+    return HttpResponse("success")
 
 
 def logout_view(request):

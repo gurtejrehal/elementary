@@ -96,6 +96,7 @@ class UserProfile(models.Model):
     gender = models.CharField(choices=GENDER, max_length=25)
     picture_url = models.URLField(null=True, blank=True)
     picture = models.ImageField(null=True, upload_to='profile_images', default='/dummyuser.jpg')
+    dark_mode = models.BooleanField(default=True)
     is_previously_logged = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):

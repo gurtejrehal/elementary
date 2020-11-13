@@ -1009,8 +1009,8 @@ Jalpaiguri Government Engineering College
         </section>
         <!--  Contact End  -->
 
-        <a class="color-scheme hide text-white bg-base-color d-inline-block" href="javascript:void(0)"><i class="lni-sun"></i></a>
-        <a class="color-scheme hide color-scheme-light text-white bg-base-color d-none" href="javascript:void(0)"><i class="lni-night"></i></a>
+        <a class="color-scheme hide text-white bg-base-color d-inline-block" id="dark-mode" href="javascript:void(0)"><i class="lni-sun"></i></a>
+        <a class="color-scheme hide color-scheme-light text-white bg-base-color d-none" id="white-mode" href="javascript:void(0)"><i class="lni-night"></i></a>
 
 
         <!-- Start Color Pallet -->
@@ -1086,7 +1086,6 @@ $(function
     }, 30000);
 
 });
-
 
     </script>
 
@@ -1166,6 +1165,55 @@ $('#search').keyup(function() {
 });
 
     </script>
+
+        <script>
+$(document).ready(function(){
+{% if dark_mode %}
+    console.log("dark mode is activated");
+{% else %}
+  $('#dark-mode').trigger('click');
+  console.log("dark mode is deactivated");
+{% endif %}
+
+
+    $('#dark-mode').click(function(){
+            console.log("signal for dark mode off");
+            data = {
+                "dark_mode" : "off",
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            }
+            $.ajax({
+            url: "/toggle-mode/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response);
+            }
+
+        });
+
+    });
+    $('#white-mode').click(function(){
+            console.log("signal for dark mode on");
+            data = {
+                "dark_mode" : "on",
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            }
+            $.ajax({
+            url: "/toggle-mode/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response);
+            }
+
+        });
+
+    });
+
+});
+
+        </script>
 
     </body>
 
