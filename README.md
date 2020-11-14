@@ -3,7 +3,7 @@
 ## An Gaming Platform for Institutions to organize gaming events.
 
 
-![Screenshot from 2020-11-10 20-58-10](https://user-images.githubusercontent.com/28597524/98694574-9f06f800-2397-11eb-857f-45518e5694a9.png "ELEMENTARY")
+![main1](https://user-images.githubusercontent.com/28597524/99024925-a859b580-258d-11eb-8f9a-1b944e36b209.jpg "ELEMENTARY")
 
 See installation [here](#how-to-install)
 
@@ -24,8 +24,8 @@ Developed on Django.
 - User activity report
 - Analytics
 - Leaderboard
-- Ranking based system
-- Admin Panel to upload levels
+- Accurate Ranking Algorithm
+- Admin Panel to add levels
 - In Game Music
 - WebGL enabled
 - Customized Profile
@@ -34,7 +34,7 @@ Developed on Django.
 - Anti Cheat
 - much more
 
-![Screenshot from 2020-11-10 21-00-41](https://user-images.githubusercontent.com/28597524/98694718-d07fc380-2397-11eb-8e21-15e5c5402282.png)
+![main2](https://user-images.githubusercontent.com/28597524/99024968-bb6c8580-258d-11eb-933f-c8a35068a8f1.jpg "ELEMENTARY UI")
 
 ### Efficient
 ELEMENTARY uses the celery worker feature to split the multiple tasksand perform it in a queue.
