@@ -159,7 +159,7 @@ def settings(request):
     Initialize core for first time logged in user.
     """
     context_dict = {}
-    levels = Level.objects.order_by("created")
+
 
     try:
         user = User.objects.get(username=request.user.username)
@@ -170,34 +170,40 @@ def settings(request):
     context_dict['userprofile'] = userprofile
 
     if userprofile.is_previously_logged:
-
-        for level in levels:
-            new_levelpublish = LevelPublish.objects.get_or_create(userprofile=userprofile, level=level)
-            if new_levelpublish[1]:
-                new_levelpublish[0].publish = False
-                new_levelpublish[0].save()
-
+        try:
+            levels = Level.objects.order_by("created")
+            for level in levels:
+                new_levelpublish = LevelPublish.objects.get_or_create(userprofile=userprofile, level=level)
+                if new_levelpublish[1]:
+                    new_levelpublish[0].publish = False
+                    new_levelpublish[0].save()
+        except:
+            print("Levels not added")
         return redirect('core:index')
 
     else:
-        for level in levels:
-            levelpublish = LevelPublish.objects.get_or_create(userprofile=userprofile, level=level)[0]
-            levelpublish.publish = False
-            levelpublish.save()
+        try:
+            levels = Level.objects.order_by("created")
+            for level in levels:
+                levelpublish = LevelPublish.objects.get_or_create(userprofile=userprofile, level=level)[0]
+                levelpublish.publish = False
+                levelpublish.save()
+                userprofile.clear = 0
+                userprofile.save()
 
-        userprofile.clear = 0
-        userprofile.save()
+                first_level = levels.first()
+                first_level.publish = True
+                first_level.save()
 
-        first_level = levels.first()
-        first_level.publish = True
-        first_level.save()
-
-        all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)
-        first_levelpublish = all_levelpublish[0]
-        first_levelpublish.publish = True
-        first_levelpublish.save()
+                all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)
+                first_levelpublish = all_levelpublish[0]
+                first_levelpublish.publish = True
+                first_levelpublish.save()
+        except:
+            print("Levels not added")
 
     userprofile.is_previously_logged = True
+    # userprofile.save()
 
     form = UserProfileForm()
     if request.method == 'POST':
@@ -205,9 +211,11 @@ def settings(request):
 
         if form.is_valid():
             form.save()
+            print(request.POST.get('firstname'))
             user.first_name = request.POST.get('firstname')
             user.last_name = request.POST.get('lastname')
             user.save()
+            print(user.first_name)
 
             return redirect('core:index')
         else:

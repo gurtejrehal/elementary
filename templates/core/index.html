@@ -1168,10 +1168,9 @@ $('#search').keyup(function() {
 
         <script>
 $(document).ready(function(){
-
 {% if dark_mode %}
     console.log("dark mode is activated");
-{% else %}
+{% elif dark_mode == False %}
   $('#dark-mode').trigger('click');
   console.log("dark mode is deactivated");
 {% endif %}

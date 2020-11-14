@@ -26,7 +26,7 @@ class ContactusForm(forms.ModelForm):
 
     class Meta:
         model = Contactus
-        exclude = ('created', )
+        exclude = ('created',)
 
 
 class UserProfileForm(forms.ModelForm):
@@ -38,4 +38,4 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'clear', 'is_previously_logged', )
+        exclude = ('user', 'clear', 'is_previously_logged', 'color_mode', 'dark_mode',)
