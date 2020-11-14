@@ -9,6 +9,15 @@ import json
 from random import randint
 
 
+COLOR = {
+        'purple': 'purple',
+        'orange': 'orange',
+        'blue': 'blue',
+        'teal': 'teal',
+        'yellow': 'yellow',
+        'red': 'red'
+    }
+
 def index(request):
     """
 
@@ -34,6 +43,7 @@ def index(request):
         context_dict["quiztaker"] = quiztaker
         context_dict["loop"] = loop
         context_dict["dark_mode"] = userprofile.dark_mode
+        context_dict["color_mode"] = userprofile.color_mode
 
         if userprofile.is_previously_logged:
             all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)[::-1]
@@ -265,6 +275,13 @@ def notifications(request):
 
 
 def toggle_mode(request):
+    """
+
+    :param request:
+    :return:
+
+    Saves the dark/white mode preference
+    """
     if request.user.is_authenticated:
         if request.method == 'POST':
             mode = str(request.POST['dark_mode'])
@@ -276,6 +293,26 @@ def toggle_mode(request):
             userprofile.dark_mode = True
         else:
             userprofile.dark_mode = False
+        userprofile.save()
+    return HttpResponse("success")
+
+
+def color_mode_toggle(request):
+    """
+
+    :param request:
+    :return:
+
+    Saves the color preference
+    """
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            mode = str(request.POST['color_mode'])
+        else:
+            mode = ""
+
+        userprofile = UserProfile.objects.get(user=request.user)
+        userprofile.color_mode = COLOR[mode]
         userprofile.save()
     return HttpResponse("success")
 

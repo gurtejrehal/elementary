@@ -240,22 +240,22 @@ Jalpaiguri Government Engineering College
                 <h6 class="text-center mt-3">Select your color</h6>
                 <ul class="pattern">
                     <li>
-                        <a class="color1" href="#"></a>
+                        <a class="color1" id="purple" href="#"></a>
                     </li>
                     <li>
-                        <a class="color2" href="#"></a>
+                        <a class="color2" id="orange" href="#"></a>
                     </li>
                     <li>
-                        <a class="color3" href="#"></a>
+                        <a class="color3" id="blue" href="#"></a>
                     </li>
                     <li>
-                        <a class="color4" href="#"></a>
+                        <a class="color4" id="teal" href="#"></a>
                     </li>
                     <li>
-                        <a class="color5" href="#"></a>
+                        <a class="color5" id="yellow" href="#"></a>
                     </li>
                     <li>
-                        <a class="color6" href="#"></a>
+                        <a class="color6" id="red" href="#"></a>
                     </li>
                 </ul>
             </div>
@@ -319,13 +319,29 @@ Jalpaiguri Government Engineering College
 
     </script>
 
-            <script>
+    <script>
 $(document).ready(function(){
+
 {% if dark_mode %}
     console.log("dark mode is activated");
 {% else %}
   $('#dark-mode').trigger('click');
   console.log("dark mode is deactivated");
+{% endif %}
+
+
+{% if color_mode == 'yellow' %}
+$('#yellow').trigger('click');
+{% elif color_mode == 'purple' %}
+$('#purple').trigger('click');
+{% elif color_mode == 'orange' %}
+$('#orange').trigger('click');
+{% elif color_mode == 'blue' %}
+$('#blue').trigger('click');
+{% elif color_mode == 'teal' %}
+$('#teal').trigger('click');
+{% elif color_mode == 'red' %}
+$('#red').trigger('click');
 {% endif %}
 
 
@@ -363,6 +379,26 @@ $(document).ready(function(){
         });
 
     });
+
+    $("#color-switcher ul li>a").click(function(){
+        console.log($(this).attr('id'));
+        data = {
+                "color_mode" : $(this).attr('id'),
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            }
+        $.ajax({
+            url: "/color-mode/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response);
+            }
+
+        });
+
+});
+
+
 
 });
 

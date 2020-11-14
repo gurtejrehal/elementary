@@ -26,6 +26,15 @@ GENDER = (
     ('Transgender', 'Transgender')
 )
 
+COLOR = (
+    ('purple', 'purple'),
+    ('orange', 'orange'),
+    ('blue', 'blue'),
+    ('teal', 'teal'),
+    ('yellow', 'yellow'),
+    ('red', 'red')
+)
+
 class Contactus(models.Model):
     """
     Entity for Contact us
@@ -97,6 +106,7 @@ class UserProfile(models.Model):
     picture_url = models.URLField(null=True, blank=True)
     picture = models.ImageField(null=True, upload_to='profile_images', default='/dummyuser.jpg')
     dark_mode = models.BooleanField(default=True)
+    color_mode = models.CharField(choices=COLOR, max_length=25, default=COLOR[4][0])
     is_previously_logged = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):

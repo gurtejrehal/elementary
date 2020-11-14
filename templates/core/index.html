@@ -401,7 +401,7 @@ Jalpaiguri Government Engineering College
 
                                             <table class="table table-borderless table-dark box-hover-border mt-4">
                                               <tr>
-                                                <th>Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
+                                                <th class="base-color">Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
                                                 <td class="base-color">{{ quiztaker.correct_answers }}</td>
                                               </tr>
                                               <tr>
@@ -551,11 +551,11 @@ Jalpaiguri Government Engineering College
 
                                             <table class="table table-borderless table-dark box-hover-border mt-4">
                                               <tr>
-                                                <th>Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
+                                                <th class="base-color">Completed <i class='fa fa-check-circle ml-2' style="color:green;"></i></th>
                                                 <td class="base-color">{{ quiztaker.correct_answers }}</td>
                                               </tr>
                                               <tr>
-                                                <th>Ongoing <i class='fa fa-spinner fa-spin ml-2'></i></th>
+                                                <th class="base-color">Ongoing <i class='fa fa-spinner fa-spin ml-2'></i></th>
                                                 <td class="base-color">{% if not quiztaker.completed %} {{ quiztaker.correct_answers|add:1 }} {% endif %}</td>
                                               </tr>
                                             </table>
@@ -700,7 +700,7 @@ Jalpaiguri Government Engineering College
                                         <img class="number-icon" src="https://img.icons8.com/plasticine/100/000000/{{ forloop.counter}}.png">
                                         <div class="timeline-contents">
                                             <div class="time-line-header">
-                                                <h6 class="timeline-title"><a style="color:white" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></h6>
+                                                <h6 class="timeline-title text-dark"><a style="color:inherit;" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></h6>
                                                 <p class="timeline-year">{{ rank.user.college|upper }}</p>
                                             </div>
                                             <div class="timeline-content">
@@ -740,15 +740,15 @@ Jalpaiguri Government Engineering College
                                       <tbody>
                                       {% for rank in rest_ranks %}
                                         <tr>
-                                          <th scope="row">{{ forloop.counter|add:3 }}</th>
-                                          <td><a style="color:white" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></td>
+                                          <th scope="row" class="text-dark">{{ forloop.counter|add:3 }}</th>
+                                          <td class="text-dark"><a style="color:inherit" href="{% url 'core:profile' rank.user.user.username %}">{{ rank.user.user.first_name }} {{ rank.user.user.last_name }}</a></td>
                                           {% if rank.completed %}
-                                            <td>Complete</td>
+                                            <td class="text-dark">Complete</td>
                                           {% else %}
-                                             <td>{{ rank.correct_answers|add:1 }}</td>
+                                             <td class="text-dark">{{ rank.correct_answers|add:1 }}</td>
                                           {% endif %}
-                                          <td>{{ rank.user.year }}</td>
-                                          <td>{{ rank.user.college|upper }}</td>
+                                          <td class="text-dark">{{ rank.user.year }}</td>
+                                          <td class="text-dark">{{ rank.user.college|upper }}</td>
                                         </tr>
                                        {% endfor %}
                                       </tbody>
@@ -1168,11 +1168,27 @@ $('#search').keyup(function() {
 
         <script>
 $(document).ready(function(){
+
 {% if dark_mode %}
     console.log("dark mode is activated");
 {% else %}
   $('#dark-mode').trigger('click');
   console.log("dark mode is deactivated");
+{% endif %}
+
+
+{% if color_mode == 'yellow' %}
+$('#yellow').trigger('click');
+{% elif color_mode == 'purple' %}
+$('#purple').trigger('click');
+{% elif color_mode == 'orange' %}
+$('#orange').trigger('click');
+{% elif color_mode == 'blue' %}
+$('#blue').trigger('click');
+{% elif color_mode == 'teal' %}
+$('#teal').trigger('click');
+{% elif color_mode == 'red' %}
+$('#red').trigger('click');
 {% endif %}
 
 
@@ -1210,6 +1226,26 @@ $(document).ready(function(){
         });
 
     });
+
+    $("#color-switcher ul li>a").click(function(){
+        console.log($(this).attr('id'));
+        data = {
+                "color_mode" : $(this).attr('id'),
+                "csrfmiddlewaretoken" : $("input[name=csrfmiddlewaretoken]").val()
+            }
+        $.ajax({
+            url: "/color-mode/",
+            type: "POST",
+            data: data,
+            success: function(response){
+                console.log(response);
+            }
+
+        });
+
+});
+
+
 
 });
 
