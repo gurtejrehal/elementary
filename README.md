@@ -45,6 +45,7 @@ We can have upto 10 celery workers at a time. This feature allows us maintain a 
 - Create virtual environment, then activate it.
 - Install all the requirements file, ``` pip install -r requirements.txt```
 - If you want to enable Celery then follow the following steps else just run  ```python manage.py runserver``` after migrating the models.
+### Below steps are to follow if you are setting up celery
 - Setup RabbitMQ server for broker service, ``` docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management```
 - start your rabbitmq broker service.
 - In elementary setting change ```CELERY_BROKER_URL = 'your_rabbitmq_address'```, if your not using the default port for RabbitMQ.
