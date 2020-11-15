@@ -12,14 +12,16 @@ ELEMENTARY is a AI based gaming platform designed for Instiution Level Gaming Co
 Users can easily login and play levels with AI base Ranking system and in-game music support.
 Custom Admin Panel to track user activity(including SQL Injection) and to add levels and use notifications service.
 Social media platform for users to search other players and check stats.
-Each Level has it own comment thread to discuss with each other just in case if your stuck.
+Each Level has it own discussion thread to discuss with other players just in case if your stuck.
 Unbeatable protection against cheaters and hackers.
-FB, Google+ and GitHuB Social Logi support.
+FB, Google+ and GitHuB Social Login support.
 Developed on Django.
 
 
 ## Features
 - User Friendly Platform
+- Custom Modifications
+- Dark Mode with added themes
 - Notifications enabled  
 - User activity report
 - Analytics
@@ -44,7 +46,7 @@ We can have upto 10 celery workers at a time. This feature allows us maintain a 
 ## How to Install
 - Create virtual environment, then activate it.
 - Install all the requirements file, ``` pip install -r requirements.txt```
-- If you want to enable Celery then follow the following steps else just run  ```python manage.py runserver``` after migrating the models.
+- If you want to enable Celery then follow the below steps else just run  ```python manage.py runserver``` after migrating the models.
 ### Below steps are to follow if you are setting up celery
 - Setup RabbitMQ server for broker service, ``` docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management```
 - start your rabbitmq broker service.
