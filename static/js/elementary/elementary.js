@@ -315,7 +315,7 @@ function sendEmail() {
         $.ajax({
             type: 'POST',
             data: $("#contactForm").serialize(),
-            url:  "/elementary/",
+            url:  "/play/",
             beforeSend: function() {
                 $('#submit-btn').html('<span class="spinner-border spinner-border-sm"></span> Loading..');
             },

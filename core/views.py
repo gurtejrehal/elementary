@@ -1,7 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse
 from core.models import Level, UserProfile, QuizTakers, Answer, Response, LevelPublish, Notification, Goodie, Customize
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
 from core.forms import ContactusForm, UserProfileForm
 from django.db.models import Q
 from django.contrib import messages
