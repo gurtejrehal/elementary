@@ -76,10 +76,14 @@ Jalpaiguri Government Engineering College
             <div class="header-navbar h-100">
                 <a class="navbar-brand" href="#" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{{ elementary.picture.url }}" alt=""></b><span>{{ elementary.title }}</span></a>
                 <ul class="list-group menu text-center" id="menu">
-                    <li class="list-group-item"><a href="{% url 'core:index' %}"><i class="lni-home"></i><span>Home</span></a></li>
+
+                    <li class="list-group-item"><a href="{% if user.is_authenticated %}
+                                                            {% url 'core:index' %}
+                                                          {% else %}
+                                                          /{% endif %}"><i class="lni-home"></i><span>Home</span></a></li>
 
                     {% if user.is_authenticated %}
-                    <li class="list-group-item"><a href="{% url 'core:logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
+                    <li class="list-group-item"><a href="{% url 'auth_logout' %}" ><i class="lni-exit"></i><span>Logout</span></a></li>
                     {% endif %}
                 </ul>
                 <div class="menu-toggler">
@@ -303,6 +307,7 @@ Jalpaiguri Government Engineering College
 
     <script>
 $(document).ready(function(){
+
 
 {% if dark_mode %}
     console.log("dark mode is activated");
