@@ -48,6 +48,13 @@ def index(request):
             all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)[::-1]
             context_dict["all_levelpublish"] = all_levelpublish
 
+            all_levelpublish = LevelPublish.objects.filter(userprofile=userprofile)
+            first_levelpublish = all_levelpublish[0]
+
+            if not first_levelpublish.publish:
+                first_levelpublish.publish = True
+                first_levelpublish.save()
+
     except User.DoesNotExist:
         pass
 
@@ -118,7 +125,7 @@ def answer(request):
         if str(ans).lower() == level_answer.text:
 
             if not current_level.is_last:
-                next = Level.objects.get(number=(level_no + 1))
+                next = Level.objects.get_or_create(number=(level_no + 1))[0]
 
             else:
                 next = Level.objects.get(number=99)

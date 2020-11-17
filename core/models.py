@@ -65,11 +65,11 @@ class Contactus(models.Model):
 class Level(models.Model):
 
     number = models.IntegerField(default=0)
-    title = models.CharField(max_length=25, blank=True, null=True)
-    picture = models.ImageField(upload_to='level_images', blank=True, null=True)
+    title = models.CharField(max_length=25, blank=True, null=True, default="Uploading soon")
+    picture = models.ImageField(upload_to='level_images', blank=True, null=True, default='/dummyuser.jpg')
     audio = models.FileField(upload_to='level_images', blank=True, null=True)
-    author = models.CharField(max_length=25, blank=True, null=True)
-    description = models.TextField(max_length=1000, blank=True, null=True)
+    author = models.CharField(max_length=25, blank=True, null=True, default="author")
+    description = models.TextField(max_length=1000, blank=True, null=True, default="This Level is being uploaded")
     quote = models.CharField(max_length=100, blank=True, null=True)
     hint = models.TextField(max_length=250, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
