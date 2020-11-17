@@ -249,14 +249,22 @@ def profile(request, username):
     quiztaker = QuizTakers.objects.get(user=userprofile)
     loop = range(1, quiztaker.correct_answers + 1)
 
+    try:
+        current_userprofile = UserProfile.objects.get(user=request.user)
+        dark_mode = current_userprofile.dark_mode
+        color_mode = current_userprofile.color_mode
+    except:
+        dark_mode = True
+        color_mode = 'yellow'
+
     goodies = Goodie.objects.all()
     elementary = Customize.objects.all()[0]
 
     context_dict = {
         'quiztaker': quiztaker,
         'loop': loop,
-        'dark_mode': userprofile.dark_mode,
-        'color_mode': userprofile.color_mode,
+        'dark_mode': dark_mode,
+        'color_mode': color_mode,
         'goodies': goodies,
         'elementary': elementary
     }

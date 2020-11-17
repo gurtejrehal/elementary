@@ -305,31 +305,35 @@ Jalpaiguri Government Engineering College
 
     </script>
 
+    {% if user.is_authenticated %}
     <script>
 $(document).ready(function(){
 
 
-{% if dark_mode %}
-    console.log("dark mode is activated");
-{% else %}
-  $('#dark-mode').trigger('click');
-  console.log("dark mode is deactivated");
-{% endif %}
+
+    {% if dark_mode %}
+        console.log("dark mode is activated");
+    {% else %}
+      $('#dark-mode').trigger('click');
+      console.log("dark mode is deactivated");
+    {% endif %}
 
 
-{% if color_mode == 'yellow' %}
-$('#yellow').trigger('click');
-{% elif color_mode == 'purple' %}
-$('#purple').trigger('click');
-{% elif color_mode == 'orange' %}
-$('#orange').trigger('click');
-{% elif color_mode == 'blue' %}
-$('#blue').trigger('click');
-{% elif color_mode == 'teal' %}
-$('#teal').trigger('click');
-{% elif color_mode == 'red' %}
-$('#red').trigger('click');
-{% endif %}
+    {% if color_mode == 'yellow' %}
+    $('#yellow').trigger('click');
+    {% elif color_mode == 'purple' %}
+    $('#purple').trigger('click');
+    {% elif color_mode == 'orange' %}
+    $('#orange').trigger('click');
+    {% elif color_mode == 'blue' %}
+    $('#blue').trigger('click');
+    {% elif color_mode == 'teal' %}
+    $('#teal').trigger('click');
+    {% elif color_mode == 'red' %}
+    $('#red').trigger('click');
+    {% endif %}
+
+
 
 
     $('#dark-mode').click(function(){
@@ -390,6 +394,7 @@ $('#red').trigger('click');
 });
 
         </script>
+    {% endif %}
 
     </body>
 
