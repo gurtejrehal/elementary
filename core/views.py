@@ -80,7 +80,6 @@ def index(request):
     notifications = Notification.objects.order_by("-pub_date")
     goodies = Goodie.objects.all()
     elementary = Customize.objects.all()[0]
-    print(elementary)
 
     context_dict["notifications"] = notifications
     context_dict["value"] = value
@@ -103,8 +102,8 @@ def answer(request):
     try:
         user = User.objects.get(username=request.user.username)
     except User.DoesNotExist:
-        ip = request.META.get('REMOTE_ADDR')
-        messages.info(request, f"Bakchodi nai. Remember, I can track your IP {ip} :)")
+        ip = request.META.get('HTTP_X_REAL_IP')
+        messages.info(request, f"Don' try this. Remember, we can track your IP {ip} :)")
         return redirect('core:index')
 
     userprofile = UserProfile.objects.get_or_create(user=user)[0]
@@ -336,14 +335,3 @@ def color_mode_toggle(request):
         userprofile.save()
     return HttpResponse("success")
 
-
-# def logout_view(request):
-#     """
-#
-#     :param request:
-#     :return:
-#
-#     Logout user successfully
-#     """
-#     logout(request)
-#     return redirect(reverse('core:index'))
