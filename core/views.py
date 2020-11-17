@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse
-from core.models import Level, UserProfile, QuizTakers, Answer, Response, LevelPublish, Notification
+from core.models import Level, UserProfile, QuizTakers, Answer, Response, LevelPublish, Notification, Goodie, Customize
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from core.forms import ContactusForm, UserProfileForm
@@ -78,11 +78,16 @@ def index(request):
     value = randint(1, 2)
 
     notifications = Notification.objects.order_by("-pub_date")
+    goodies = Goodie.objects.all()
+    elementary = Customize.objects.all()[0]
+    print(elementary)
 
     context_dict["notifications"] = notifications
     context_dict["value"] = value
     context_dict["levels"] = levels
     context_dict["form"] = form
+    context_dict["goodies"] = goodies
+    context_dict["elementary"] = elementary
 
     return render(request, "core/index.html", context=context_dict)
 
@@ -239,9 +244,16 @@ def profile(request, username):
     quiztaker = QuizTakers.objects.get(user=userprofile)
     loop = range(1, quiztaker.correct_answers + 1)
 
+    goodies = Goodie.objects.all()
+    elementary = Customize.objects.all()[0]
+
     context_dict = {
         'quiztaker': quiztaker,
-        'loop': loop
+        'loop': loop,
+        'dark_mode': userprofile.dark_mode,
+        'color_mode': userprofile.color_mode,
+        'goodies': goodies,
+        'elementary': elementary
     }
     return render(request, 'core/profile.html', context=context_dict)
 
@@ -325,13 +337,13 @@ def color_mode_toggle(request):
     return HttpResponse("success")
 
 
-def logout_view(request):
-    """
-
-    :param request:
-    :return:
-
-    Logout user successfully
-    """
-    logout(request)
-    return redirect(reverse('core:index'))
+# def logout_view(request):
+#     """
+#
+#     :param request:
+#     :return:
+#
+#     Logout user successfully
+#     """
+#     logout(request)
+#     return redirect(reverse('core:index'))

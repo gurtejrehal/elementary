@@ -12,5 +12,5 @@ urlpatterns = [
     path('color-mode/', views.color_mode_toggle, name="color_mode"),
     path('profile/<username>/', views.profile, name='profile'),
     path('settings/', views.settings, name='settings'),
-    path('logout/', views.logout_view, name='logout'),
+    # path('logout/', views.logout_view, name='logout'),
 ]

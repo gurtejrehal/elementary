@@ -35,6 +35,13 @@ COLOR = (
     ('red', 'red')
 )
 
+TYPE = (
+    ('tshirt', 'tshirt'),
+    ('checkbox', 'checkbox'),
+    ('heart', 'heart'),
+    ('gift', 'gift'),
+)
+
 class Contactus(models.Model):
     """
     Entity for Contact us
@@ -150,6 +157,28 @@ class LevelPublish(models.Model):
 
     class Meta:
         verbose_name_plural = 'Level Published'
+
+
+class Goodie(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.TextField(max_length=250)
+    type = models.CharField(choices=TYPE, max_length=25, default=TYPE[0][0])
+
+    def __str__(self):
+        return self.title
+
+
+class Customize(models.Model):
+    title = models.CharField(max_length=20, default="Elementary", null=False)
+    picture = models.ImageField(null=False, upload_to='elementary_logo', default='/elementary_logo/t20-logomark-white.svg')
+    mottos = models.CharField(null=False, default="Ready.,Active.,Creative.", max_length=50)
+    contact = models.CharField(max_length=30, default="Name: Mobile Number", null=False)
+    email = models.EmailField(default="example@example.com", null=False)
+    fb = models.CharField(default='https://www.facebook.com/jeclatT20.jgec/', null=False, max_length=100)
+    instagram = models.CharField(default='https://www.instagram.com/jeclat2k19/', null=False, max_length=100)
+
+    def __str__(self):
+        return self.title
 
 
 class Notification(models.Model):

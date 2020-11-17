@@ -15,21 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from core.models import Customize, QuizTakers
 
 
-def redirect_login(request):
-    if not request.user.is_authenticated:
-        return redirect('auth_login')
-    else:
-        return redirect('core:settings')
+elementary = Customize.objects.all()[0]
+ranks = QuizTakers.objects.filter(user__user__is_staff=False).order_by("-correct_answers")
+top_ranks = ranks[:3]
+rest_ranks = ranks[3:]
 
+extra_context = {
+    'elementary': elementary,
+    'top_ranks': top_ranks,
+    'rest_ranks': rest_ranks
+}
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
+                  path('',
+                       auth_views.LoginView.as_view(extra_context=extra_context), name='auth_login'),
                   path('accounts/', include('registration.backends.simple.urls')),
-                  path('', redirect_login),
                   path('', include('core.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

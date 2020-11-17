@@ -9,10 +9,10 @@ Jalpaiguri Government Engineering College
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Elementary</title>
-        <meta name="description" content="" />
+        <title>{{ elementary.title }}</title>
+        <meta name="description" content="{{ elementary.title }}" />
         <meta name="keywords" content="" />
-        <meta name="author" content="Retrina Group" />
+        <meta name="author" content="Gurtej Rehal" />
 
         <!--  FavIcon  -->
         <link rel="shortcut icon" href="{% static 'images/t20_main/t20-logomark-black.ico' %}" type="favicon.png" />
@@ -74,7 +74,7 @@ Jalpaiguri Government Engineering College
         <!--   Header Start -->
         <header>
             <div class="header-navbar h-100">
-                <a class="navbar-brand" href="#" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{% static 'images/elementary/t20-logomark-white.svg' %}" alt=""></b><span>Elementary</span></a>
+                <a class="navbar-brand" href="#" target="_blank"><b><img class="mb-3" style="width:1em;height:auto;" src="{{ elementary.picture.url }}" alt=""></b><span>{{ elementary.title }}</span></a>
                 <ul class="list-group menu text-center" id="menu">
                     <li class="list-group-item"><a href="{% url 'core:index' %}"><i class="lni-home"></i><span>Home</span></a></li>
 
@@ -180,42 +180,24 @@ Jalpaiguri Government Engineering College
                                 </div>
                             </div>
                             <div class="row">
+                                {% for goodie in goodies %}
                                 <!-- Item 01 -->
                                 <div class="col-lg-4 text-left">
                                     <div class="services-item box-hover-border">
                                         <div class="float-left mt-lg-1 d-inline-block services-icon">
-                                            <i class="lni-tshirt size-md base-color"></i>
+                                            <i class="lni-{% if goodie.type == 'tshirt' %}tshirt
+                                                          {% elif goodie.type == 'checkbox' %}check-mark-circle
+                                                          {% elif goodie.type == 'heart' %}heart
+                                                          {% elif goodie.type == 'gift' %}gift{% endif %} size-md base-color"></i>
                                         </div>
                                         <div class="services-content">
-                                            <h5 class="mb-3">Jeclat T-Shirt</h5>
-                                            <p class="text-muted mb-0">Dont miss the chance to win the official JECLAT T20 T - Shirt.</p>
+                                            <h5 class="mb-3">{{ goodie.title }}</h5>
+                                            <p class="text-muted mb-0">{{ goodie.description }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Item 02 -->
-                                <div class="col-lg-4 text-left">
-                                    <div class="services-item box-hover-border">
-                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
-                                            <i class="lni-check-mark-circle size-md base-color"></i>
-                                        </div>
-                                        <div class="services-content">
-                                            <h5 class="mb-3">Jeclat Hoodie</h5>
-                                            <p class="text-muted mb-0">JECLAT T20 Hoodie is the hot deal you can win. Get yourself ready.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Item 03 -->
-                                <div class="col-lg-4 text-left">
-                                    <div class="services-item box-hover-border">
-                                        <div class="float-left mt-lg-1 d-inline-block services-icon">
-                                            <i class="lni-heart size-md base-color"></i>
-                                        </div>
-                                        <div class="services-content">
-                                            <h5 class="mb-3">Prizes</h5>
-                                            <p class="text-muted mb-0">Win a lot more prizes apart from official JECLAT T20 Merchandise.</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
+
 
                             </div>
 
