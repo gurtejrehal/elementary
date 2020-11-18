@@ -30,6 +30,9 @@ class ContactusForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    """
+    UserProfile customization form
+    """
     gender = forms.CharField(required=True, max_length=25)
     picture = forms.ImageField(required=False)
     department = forms.CharField(required=True, max_length=10)
