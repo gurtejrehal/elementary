@@ -20,3 +20,14 @@ def save_profile_picture(backend, user, response, *args, **kwargs):
             profile.picture_url = f"http://graph.facebook.com/{response['id']}/picture?type=large"
             profile.save()
 
+    if backend.name == 'twitter':
+        user = User.objects.get_or_create(username=user.username)[0]
+        profile = UserProfile.objects.get_or_create(user=user)[0]
+        url = response.get('profile_image_url', '').replace('_normal', '')
+        print("image", url)
+
+        if url:
+            profile.picture_url = url
+            profile.save()
+
+

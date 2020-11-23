@@ -34,6 +34,7 @@ extra_context = {
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
+                  path('oauth/', include('social_django.urls', namespace='social')),
                   path('',
                        auth_views.LoginView.as_view(extra_context=extra_context), name='auth_login'),
                   path('accounts/', include('registration.backends.simple.urls')),
