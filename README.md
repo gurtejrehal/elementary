@@ -46,6 +46,13 @@ We can have upto 10 celery workers at a time. This feature allows us maintain a 
 ## How to Install
 - Create virtual environment, then activate it.
 - Install all the requirements file, ``` pip install -r requirements.txt```
+- Create environment variable```.env``` and add following to it:
+  - ```export SOCIAL_AUTH_FACEBOOK_KEY=your_facebook_key```
+  - ```export SOCIAL_AUTH_FACEBOOK_SECRET=your_facebook_secret```
+  - ```export SOCIAL_AUTH_TWITTER_KEY=your_twitter_key```
+  - ```export SOCIAL_AUTH_TWITTER_SECRET=your_twitter_secret```
+  - ```export ACCESS_KEY=your_twitter_access_key```
+  - ```export ACCESS_SECRET=your_twitter_access_secret```
 - If you want to enable Celery then follow the below steps else just run  ```python manage.py runserver``` after migrating the models.
 ### Below steps are to follow if you are setting up celery
 - Setup RabbitMQ server for broker service, ``` docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management```
