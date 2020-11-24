@@ -308,9 +308,10 @@ Jalpaiguri Government Engineering College
                                      <p href="#" class="max-width-450 mx-0 my-4">Welcome, <span class="base-color">{{ userprofile.user.first_name }}</span></p>
                                     {% else %}
                                     <a href="login-modal" data-toggle="modal" data-target="#login-modal" class="max-width-450 mx-0 my-4 btn btn-info">Login</a>
+                                    <a href="/accounts/register/" class="max-width-450 mx-0 my-4 btn btn-info">Register</a>
                                     <a href="{% url 'social:begin' 'facebook' %}" class="max-width-450 mx-0 my-4 btn btn-primary"><i class="mr-2 lni-facebook-filled"></i>Login</a>
                                     <a href="{% url 'social:begin' 'twitter' %}" class="max-width-450 mx-0 my-4 btn btn-primary"><i class="mr-2 lni-twitter-filled"></i> Login </a>
-                                    <a href="/accounts/register/" class="max-width-450 mx-0 my-4 btn btn-info">Register</a>
+
 
                                     {% endif %}
                                     <ul class="list-inline hero-social">
